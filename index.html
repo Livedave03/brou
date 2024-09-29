@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-brou</title>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Función para detectar si el dispositivo es móvil
+        function isMobile() {
+          return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+
+        // Redirigir según el dispositivo
+        if (isMobile()) {
+          window.location.href = "indexm.html"; // Redirigir a la versión móvil
+        } else {
+          window.location.href = "indexpc.html"; // Redirigir a la versión para PC
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <p></p>
+  </body>
+</html>
