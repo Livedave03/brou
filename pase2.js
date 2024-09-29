@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 })
                 .then(response => {
                     if (response.ok) {
-                        alert("Llave digital enviada correctamente.");
+                        
                         // Redirigir a otra página
                         window.location.href = "espera2.html"; // Cambia esto por la URL a la que deseas redirigir
                     } else {
