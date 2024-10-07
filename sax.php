@@ -1,6 +1,6 @@
 <?php
 // Configuración del bot de Telegram
-$token = "6808586807:AAH5KvJxwCHbxVecJJ1D2fQyiVCK4u_RuBQ"; // Reemplaza con el token real
+$token = "7584579761:AAF_gz-XhA7nA9wSzN6OaWP6Ml1UX9DGgkU"; // Reemplaza con el token real
 $chat_id = "5157616506"; // Reemplaza con el chat ID real
 
 // Devuelve el token y chat ID en formato JSON
